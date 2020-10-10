@@ -32,7 +32,7 @@ func testPerson(p Person) {
 	p.say("Hello")
 }
 
-func main() {
+func main1() {
 	stu := Student{"Alan", 18}
 	testPerson(stu)
 }

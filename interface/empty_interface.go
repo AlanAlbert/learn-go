@@ -13,6 +13,9 @@ func main() {
 	fmt.Printf("%T, %v\n", j, j)
 
 	empIface(i, j)
+
+	i = "123"
+	fmt.Println(i)
 }
 
 func empIface(ifaces ...emptyIface) {

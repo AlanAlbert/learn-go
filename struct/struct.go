@@ -1,11 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 // Person person
 type Person struct {
 	name string
 	age  uint8
+
+	Other string `json:"other"`
 }
 
 // SetName set name
@@ -45,14 +50,21 @@ func (s Student) GetClassName() string {
 }
 
 func main() {
-	person := Person{name: "Alan", age: 18}
+	person := Person{name: "Alan", age: 18, Other: "Other info"}
 	fmt.Println(person)
 	test(person)
 
-	stu := Student{Person: Person{name: "Jane", age: 17}, className: "#1"}
+	stu := Student{Person: Person{name: "Jane", age: 17, Other: "Other"}, className: "#1"}
 	fmt.Println(stu)
 	// test(stu) 错误
 	fmt.Println(stu.GetName(), stu.GetAge(), stu.GetClassName())
+
+	json, err := json.Marshal(stu)
+	if err != nil {
+		panic(err)
+	} else {
+		fmt.Println(string(json))
+	}
 }
 
 func test(p Person) {
