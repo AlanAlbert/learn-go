@@ -5,6 +5,19 @@ import (
 	"reflect"
 )
 
+type testReflect struct {
+	name string	`testTag:"this is tag" anotherTag:"this is another tag"`
+	age int
+}
+
+func (t *testReflect) GetName() string {
+	return t.name
+}
+
+func (t *testReflect) SetName(name string) {
+	t.name = name
+}
+
 func main() {
 	arr := [...]int{1, 2, 3}
 	map1 := map[string]int{
@@ -23,4 +36,33 @@ func main() {
 
 	v := valueOf.Interface()
 	fmt.Println(v)
+
+	intV := 89
+	str := "csam,dnsa"
+	testType(intV)
+	testType(str)
+
+	person := &testReflect{
+		name: "Alan",
+		age: 12,
+	}
+
+	method := reflect.ValueOf(person).MethodByName("SetName")
+	method.Call([]reflect.Value{reflect.ValueOf("Jane")})
+	fmt.Println(person.GetName())
+
+	if field, ok := reflect.TypeOf(*person).FieldByName("name"); !ok {
+		fmt.Println("can not get field(`name`)")
+	} else {
+		fmt.Println("test tag:", field.Tag.Get("testTag"), "\nanother tag:", field.Tag.Get("anotherTag"))
+	}
+}
+
+func testType(v interface{}) {
+	switch reflect.TypeOf(v).Kind() {
+	case reflect.Int,reflect.Int32,reflect.Int64:
+		fmt.Printf("The type of %v is %T\n", v, v)
+	case reflect.String:
+		fmt.Printf("The type of %v is string\n", v)
+	}
 }
