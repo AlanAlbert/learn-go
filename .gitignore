@@ -1,3 +1,2 @@
 .idea/
-./profile/profile
-./profile/*profile
+!profile/profile.go
