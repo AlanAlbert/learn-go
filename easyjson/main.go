@@ -37,4 +37,13 @@ func main() {
 		return
 	}
 	fmt.Println("teacher: ", string(jsonTeacher))
+
+
+	json := "{\"class\":\"class 3\",\"score\":90,\"name\":\"Anhoder\",\"age\":16}"
+	stu2 := easyjson_example.Student{}
+	if err := stu2.UnmarshalJSON([]byte(json)); err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(stu2)
 }
